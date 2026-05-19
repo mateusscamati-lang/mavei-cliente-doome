@@ -10,7 +10,7 @@
   --paper-warm:   #EDE8E0;
   --paper-cool:   #E6E8EB;
   --mist:         #B8C2C9;          /* cinza-azulado do logo */
-  --mist-deep:    #8A98A2;
+  --mist-deep:    #5C6770;
   --graphite:     #2A2F33;          /* texto principal */
   --ink:          #14181B;          /* preto profundo */
   --petrol:       #1F3A47;          /* acento azul-petróleo */
@@ -406,6 +406,25 @@ ul, ol { list-style: none; margin: 0; padding: 0; }
   font-size: 14px;
   line-height: 1.7;
   color: rgba(242, 239, 234, 0.78);
+}
+/* Touch targets adequados em mobile: links clicáveis com área de hit ≥ 48px */
+.footer__col p a,
+.footer__col p button {
+  display: inline-block;
+  padding: 6px 0;
+  min-height: 32px;
+  background: none;
+  border: 0;
+  color: inherit;
+  cursor: pointer;
+  font: inherit;
+}
+@media (max-width: 700px) {
+  .footer__col p a,
+  .footer__col p button {
+    padding: 10px 0;
+    min-height: 44px;
+  }
 }
 .footer__col .eyebrow {
   color: var(--mist);

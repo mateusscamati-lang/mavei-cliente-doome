@@ -60,7 +60,7 @@
     '    <section class="lb__cta">',
     '      <p class="lb__cta-eyebrow">Gostou desse projeto?</p>',
     '      <h3 class="lb__cta-title">Vamos conversar<br><em>sobre o seu.</em></h3>',
-    '      <a class="lb__cta-btn" target="_blank" rel="noopener noreferrer" data-cta="lightbox-projeto">',
+    '      <a class="lb__cta-btn" href="https://api.whatsapp.com/send?phone=5519992994853" target="_blank" rel="noopener noreferrer" data-cta="lightbox-projeto" aria-label="Falar com a Doome pelo WhatsApp">',
     '        <span>Falar com a Doome</span>',
     '        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg>',
     '      </a>',
