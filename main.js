@@ -12,8 +12,8 @@
 
 // ── 1. GA4 lazy load ────────────────────────────────────────────
 (function lazyGA4() {
-  var GA4_ID = '[GA4_ID]';
-  if (!GA4_ID || GA4_ID === '[GA4_ID]') return;
+  var GA4_ID = 'G-1MMRFBELDX';
+  if (!GA4_ID || GA4_ID === 'G-1MMRFBELDX') return;
   var loaded = false;
   var events = ['scroll','mousemove','touchstart','keydown','click'];
   var opts = { passive: true, once: true };
