@@ -1,0 +1,37 @@
+# Dependências (usadas só localmente pra recomprimir imagens via sharp)
+node_modules/
+package.json
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+
+# Editor / OS
+.vscode/
+.idea/
+.claude/
+.DS_Store
+Thumbs.db
+desktop.ini
+*.swp
+*.swo
+
+# Logs e temporários
+*.log
+.cache/
+.tmp/
+tmp/
+
+# Backups de imagens originais (caso reapareçam)
+*-original.png
+*-original.jpg
+*-original.jpeg
+*-original.webp
+
+# Build artifacts (caso futuramente use build step)
+dist/
+build/
+
+# Env files (segurança)
+.env
+.env.local
+.env.*.local

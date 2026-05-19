@@ -1,19 +1,23 @@
 /* ============================================================
-   main.js — comportamentos básicos compartilhados pelo template
-   Stack mínima sem dependências.
+   main.js — comportamentos compartilhados em todas as páginas
+   DOOME · Padrão MAVEI · Sem dependências.
 
-   Cliente premium pode adicionar customizações específicas
-   (animações, IntersectionObserver, etc) DEPOIS — esse arquivo
-   é o ponto de partida saudável de performance.
+   Inclui:
+     1. Lazy GA4 (dispara no primeiro evento ou após 5s)
+     2. Nav scroll detection (sentinel-based, zero rAF cost)
+     3. Smooth scroll pra âncoras internas
+     4. Reveal on-scroll (IntersectionObserver)
+     5. Tracking de cliques WhatsApp e envios de formulário
    ============================================================ */
 
-// ── GA4: lazy load (dispara no primeiro evento ou após 5s) ────
-// Substituir [GA4_ID] pelo ID real do cliente.
-// Se ainda não tem GA4, deixa como está — o script não dispara.
+// ── 1. GA4 lazy load ────────────────────────────────────────────
 (function lazyGA4() {
   var GA4_ID = '[GA4_ID]';
   if (!GA4_ID || GA4_ID === '[GA4_ID]') return;
   var loaded = false;
+  var events = ['scroll','mousemove','touchstart','keydown','click'];
+  var opts = { passive: true, once: true };
+
   function load() {
     if (loaded) return;
     loaded = true;
@@ -27,44 +31,57 @@
     gtag('config', GA4_ID, { send_page_view: true });
     events.forEach(function(ev){ window.removeEventListener(ev, load, opts); });
   }
-  var events = ['scroll','mousemove','touchstart','keydown','click'];
-  var opts = { passive: true, once: true };
+
   events.forEach(function(ev){ window.addEventListener(ev, load, opts); });
   setTimeout(load, 5000);
 })();
 
-// ── 1. NAV: adiciona classe quando o usuário rola ─────────────
+// ── 2. Nav scroll detection ────────────────────────────────────
 (function navScroll() {
-  const nav = document.getElementById('nav') || document.querySelector('.nav');
+  var nav = document.getElementById('nav') || document.querySelector('.nav');
   if (!nav) return;
-
-  // Sentinel no topo da página — zero getBoundingClientRect em cada scroll
-  const sentinel = document.createElement('div');
+  var sentinel = document.createElement('div');
   sentinel.style.cssText = 'position:absolute;top:50px;left:0;width:1px;height:1px;pointer-events:none';
   document.body.prepend(sentinel);
-
-  const io = new IntersectionObserver(entries => {
+  var io = new IntersectionObserver(function(entries){
     nav.classList.toggle('nav--scrolled', !entries[0].isIntersecting);
   }, { threshold: 0 });
   io.observe(sentinel);
 })();
 
-// ── 2. Smooth scroll pra âncoras internas ────────────────────
-document.querySelectorAll('a[href^="#"]').forEach(a => {
-  a.addEventListener('click', e => {
-    const href = a.getAttribute('href');
+// ── 3. Smooth scroll pra âncoras internas ──────────────────────
+document.querySelectorAll('a[href^="#"]').forEach(function(a){
+  a.addEventListener('click', function(e){
+    var href = a.getAttribute('href');
     if (!href || href === '#') return;
-    const target = document.querySelector(href);
+    var target = document.querySelector(href);
     if (!target) return;
     e.preventDefault();
     target.scrollIntoView({ behavior: 'smooth', block: 'start' });
   });
 });
 
-// ── 3. Track de cliques WhatsApp (eventos GA4 quando disponível) ─
+// ── 4. Reveal on-scroll ────────────────────────────────────────
+(function revealOnScroll() {
+  if (!('IntersectionObserver' in window)) {
+    document.querySelectorAll('.reveal').forEach(function(el){ el.classList.add('in'); });
+    return;
+  }
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if (e.isIntersecting) {
+        e.target.classList.add('in');
+        io.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+  document.querySelectorAll('.reveal').forEach(function(el){ io.observe(el); });
+})();
+
+// ── 5. Track de cliques WhatsApp ───────────────────────────────
 (function trackWhatsApp() {
-  document.querySelectorAll('a[href*="wa.me"], a[href*="api.whatsapp.com"]').forEach(a => {
-    a.addEventListener('click', () => {
+  document.querySelectorAll('a[href*="wa.me"], a[href*="api.whatsapp.com"]').forEach(function(a){
+    a.addEventListener('click', function(){
       if (typeof window.gtag === 'function') {
         window.gtag('event', 'click_whatsapp', {
           event_category: 'CTA',
@@ -75,10 +92,10 @@ document.querySelectorAll('a[href^="#"]').forEach(a => {
   });
 })();
 
-// ── 4. Track de envios de formulário (genérico) ──────────────
+// ── 6. Track de envios de formulário ───────────────────────────
 (function trackForms() {
-  document.querySelectorAll('form').forEach(form => {
-    form.addEventListener('submit', () => {
+  document.querySelectorAll('form').forEach(function(form){
+    form.addEventListener('submit', function(){
       if (typeof window.gtag === 'function') {
         window.gtag('event', 'generate_lead', {
           event_category: 'Formulário',
@@ -86,5 +103,17 @@ document.querySelectorAll('a[href^="#"]').forEach(a => {
         });
       }
     }, { passive: true });
+  });
+})();
+
+// ── 7. Service Worker: registra após load (não bloqueia 1ª pintura) ──
+(function registerSW() {
+  if (!('serviceWorker' in navigator)) return;
+  // Não registra em localhost via servidor Python (file:// também não funciona)
+  if (location.protocol !== 'https:' && location.hostname !== 'localhost') return;
+  window.addEventListener('load', function(){
+    navigator.serviceWorker.register('/sw.js').catch(function(err){
+      console.warn('[sw] registro falhou:', err);
+    });
   });
 })();

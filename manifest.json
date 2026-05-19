@@ -1,0 +1,39 @@
+{
+  "name": "Doome Projetos e Obras",
+  "short_name": "Doome",
+  "description": "Arquitetura, engenharia e gestão de obras em Americana SP — projetos residenciais, comerciais e de interiores.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#F2EFEA",
+  "theme_color": "#14181B",
+  "lang": "pt-BR",
+  "categories": ["business", "lifestyle"],
+  "icons": [
+    {
+      "src": "/assets/image-02.webp",
+      "sizes": "192x192",
+      "type": "image/webp",
+      "purpose": "any"
+    },
+    {
+      "src": "/assets/image-03.webp",
+      "sizes": "512x512",
+      "type": "image/webp",
+      "purpose": "any maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Projetos",
+      "url": "/projetos/",
+      "description": "Portfólio de projetos da Doome"
+    },
+    {
+      "name": "Contato",
+      "url": "/contato/",
+      "description": "Fale com a Doome"
+    }
+  ]
+}

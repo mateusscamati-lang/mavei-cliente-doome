@@ -1,0 +1,367 @@
+/* ============================================================
+   lightbox.css — Modal editorial cinematográfico de projetos.
+   Layout: hero full-width → intro → texto+specs (2 cols) → galeria → CTA.
+   ============================================================ */
+
+.lb {
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+  background: rgba(20, 24, 27, 0.96);
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 0.45s cubic-bezier(0.22, 1, 0.36, 1),
+              visibility 0s linear 0.45s;
+  font-family: "Montserrat", -apple-system, BlinkMacSystemFont, sans-serif;
+  color: #F2EFEA;
+}
+.lb.is-on {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  transition: opacity 0.55s cubic-bezier(0.22, 1, 0.36, 1),
+              visibility 0s linear;
+}
+
+/* ── Botão de fechar (fixo sobre tudo) ─────────────────────── */
+.lb__close {
+  position: fixed;
+  top: 24px;
+  right: 24px;
+  z-index: 3;
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  border: 1px solid rgba(242, 239, 234, 0.45);
+  background: rgba(20, 24, 27, 0.6);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  color: #F2EFEA;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  padding: 0;
+  transition: background 0.3s, border-color 0.3s,
+              transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.lb__close:hover {
+  background: #F2EFEA;
+  color: #14181B;
+  border-color: #F2EFEA;
+  transform: rotate(90deg);
+}
+
+/* ── Scroll container ──────────────────────────────────────── */
+.lb__scroll {
+  position: absolute;
+  inset: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+}
+.lb__scroll::-webkit-scrollbar { width: 6px; }
+.lb__scroll::-webkit-scrollbar-track { background: transparent; }
+.lb__scroll::-webkit-scrollbar-thumb { background: rgba(242, 239, 234, 0.2); border-radius: 3px; }
+
+.lb__article {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding-bottom: 48px;
+}
+
+/* ── HERO (2 imgs sobrepostas pra cross-fade) ─────────────── */
+.lb__hero {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  max-height: 78vh;
+  overflow: hidden;
+  background: #0a0d0f;
+  cursor: pointer;
+}
+.lb__hero-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: center;
+  display: block;
+  opacity: 0;
+  transition: opacity 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+  pointer-events: none;
+}
+.lb__hero-img.is-on {
+  opacity: 1;
+  pointer-events: auto;
+}
+/* Suaviza a entrada inicial da hero quando o modal abre */
+.lb.is-on .lb__hero-img.is-on {
+  animation: lb-hero-in 0.9s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+@keyframes lb-hero-in {
+  from { transform: scale(1.03); opacity: 0; }
+  to   { transform: scale(1);    opacity: 1; }
+}
+
+/* ── FILMSTRIP de thumbs (logo abaixo da hero) ────────────── */
+.lb__strip {
+  position: relative;
+  display: flex;
+  gap: 8px;
+  padding: 12px clamp(24px, 6vw, 100px);
+  max-width: 1400px;
+  margin: 0 auto;
+  width: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(242, 239, 234, 0.25) transparent;
+}
+.lb__strip::-webkit-scrollbar { height: 4px; }
+.lb__strip::-webkit-scrollbar-track { background: transparent; }
+.lb__strip::-webkit-scrollbar-thumb { background: rgba(242, 239, 234, 0.2); border-radius: 2px; }
+
+.lb__thumb {
+  flex: 0 0 auto;
+  width: 120px;
+  aspect-ratio: 4 / 3;
+  border: 2px solid transparent;
+  border-radius: 3px;
+  background: #0a0d0f;
+  cursor: pointer;
+  padding: 0;
+  overflow: hidden;
+  position: relative;
+  opacity: 0.55;
+  transition: opacity 0.3s, border-color 0.3s, transform 0.3s;
+}
+.lb__thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: center;
+  display: block;
+}
+.lb__thumb:hover {
+  opacity: 0.85;
+  transform: translateY(-2px);
+}
+.lb__thumb.is-on {
+  opacity: 1;
+  border-color: #F2EFEA;
+}
+
+@media (max-width: 700px) {
+  .lb__strip {
+    padding: 8px 16px;
+    gap: 6px;
+  }
+  .lb__thumb {
+    width: 88px;
+  }
+}
+
+/* ── INTRO (eyebrow + título + locline) ───────────────────── */
+.lb__intro {
+  padding: clamp(32px, 4vw, 56px) clamp(24px, 6vw, 100px) clamp(16px, 2vw, 28px);
+  max-width: 1100px;
+  margin: 0 auto;
+  width: 100%;
+}
+.lb__eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: "JetBrains Mono", ui-monospace, monospace;
+  font-size: 11px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: rgba(242, 239, 234, 0.7);
+  margin: 0 0 16px;
+}
+.lb__sep { opacity: 0.4; }
+.lb__title {
+  font-family: "Montserrat", sans-serif;
+  font-weight: 300;
+  font-size: clamp(36px, 5vw, 72px);
+  letter-spacing: -0.03em;
+  line-height: 0.95;
+  margin: 0 0 20px;
+  color: #F2EFEA;
+}
+.lb__locline {
+  font-family: "JetBrains Mono", ui-monospace, monospace;
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: rgba(242, 239, 234, 0.55);
+  margin: 0;
+}
+
+/* ── BODY: descrição (2/3) + specs (1/3) ──────────────────── */
+.lb__body {
+  display: grid;
+  grid-template-columns: 1.7fr 1fr;
+  gap: clamp(32px, 5vw, 80px);
+  padding: clamp(24px, 3vw, 48px) clamp(24px, 6vw, 100px);
+  max-width: 1100px;
+  margin: 0 auto;
+  width: 100%;
+  border-top: 1px solid rgba(242, 239, 234, 0.12);
+}
+.lb__body-text {
+  min-width: 0;
+}
+.lb__desc {
+  font-size: clamp(16px, 1.3vw, 19px);
+  line-height: 1.7;
+  color: rgba(242, 239, 234, 0.85);
+  max-width: 56ch;
+  margin: 0;
+}
+
+.lb__specs {
+  min-width: 0;
+}
+.lb__specs-list {
+  margin: 0;
+  padding: 0;
+}
+.lb__specs-row {
+  display: grid;
+  grid-template-columns: 1fr;
+  padding: 14px 0;
+  border-top: 1px solid rgba(242, 239, 234, 0.14);
+  gap: 4px;
+}
+.lb__specs-row:last-child {
+  border-bottom: 1px solid rgba(242, 239, 234, 0.14);
+}
+.lb__specs-row dt {
+  font-family: "JetBrains Mono", ui-monospace, monospace;
+  font-size: 10px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: rgba(242, 239, 234, 0.5);
+  margin: 0;
+}
+.lb__specs-row dd {
+  margin: 0;
+  font-size: 14px;
+  color: rgba(242, 239, 234, 0.92);
+  line-height: 1.5;
+}
+
+@media (max-width: 800px) {
+  .lb__body {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+}
+
+/* (galeria antiga removida — agora a navegação é via filmstrip de thumbs) */
+
+/* ── CTA final ─────────────────────────────────────────────── */
+.lb__cta {
+  text-align: center;
+  padding: clamp(40px, 6vw, 80px) clamp(24px, 6vw, 100px) clamp(32px, 4vw, 56px);
+  max-width: 900px;
+  margin: clamp(16px, 3vw, 40px) auto 0;
+  border-top: 1px solid rgba(242, 239, 234, 0.12);
+}
+.lb__cta-eyebrow {
+  font-family: "JetBrains Mono", ui-monospace, monospace;
+  font-size: 11px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: rgba(242, 239, 234, 0.55);
+  margin: 0 0 16px;
+}
+.lb__cta-title {
+  font-family: "Montserrat", sans-serif;
+  font-weight: 300;
+  font-size: clamp(28px, 4vw, 56px);
+  letter-spacing: -0.025em;
+  line-height: 1;
+  margin: 0 0 32px;
+  color: #F2EFEA;
+}
+.lb__cta-title em {
+  font-style: italic;
+  opacity: 0.8;
+}
+.lb__cta-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  padding: 18px 36px;
+  border-radius: 999px;
+  background: transparent;
+  color: #F2EFEA;
+  border: 1px solid rgba(242, 239, 234, 0.5);
+  font-family: "Montserrat", sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background 0.4s, color 0.4s, border-color 0.4s;
+}
+.lb__cta-btn:hover {
+  background: #F2EFEA;
+  color: #14181B;
+  border-color: #F2EFEA;
+}
+.lb__cta-btn svg {
+  flex-shrink: 0;
+  transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.lb__cta-btn:hover svg {
+  transform: translate(2px, -2px);
+}
+
+/* ── Cards clicáveis ──────────────────────────────────────── */
+[data-project-id] {
+  cursor: pointer;
+}
+
+/* ── Mobile ───────────────────────────────────────────────── */
+@media (max-width: 700px) {
+  .lb__close {
+    top: 14px;
+    right: 14px;
+    width: 40px;
+    height: 40px;
+  }
+  .lb__hero {
+    aspect-ratio: 4 / 5;
+    max-height: 70vh;
+  }
+  .lb__intro {
+    padding: 36px 22px 12px;
+  }
+  .lb__title {
+    font-size: clamp(32px, 9vw, 52px);
+  }
+  .lb__body {
+    padding: 28px 22px;
+    gap: 28px;
+  }
+  .lb__gallery {
+    padding: 10px 22px;
+    gap: 14px;
+  }
+  .lb__cta {
+    padding: 50px 22px 36px;
+  }
+  .lb__cta-title {
+    font-size: clamp(26px, 8vw, 40px);
+  }
+}

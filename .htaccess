@@ -1,0 +1,83 @@
+# ============================================================
+# DOOME — .htaccess
+# Performance, segurança e compatibilidade de URLs.
+# ============================================================
+
+# ── Compressão Gzip / Brotli ─────────────────────────────────
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/css text/javascript application/javascript application/json image/svg+xml font/woff2
+</IfModule>
+
+# ── Cache headers ────────────────────────────────────────────
+<IfModule mod_expires.c>
+  ExpiresActive On
+
+  # Fontes — 1 ano (versionadas via filename)
+  ExpiresByType font/woff2 "access plus 1 year"
+
+  # Imagens — 1 ano
+  ExpiresByType image/webp "access plus 1 year"
+  ExpiresByType image/jpeg "access plus 1 year"
+  ExpiresByType image/png "access plus 1 year"
+  ExpiresByType image/svg+xml "access plus 1 year"
+  ExpiresByType image/x-icon "access plus 1 year"
+
+  # CSS / JS — 1 semana
+  ExpiresByType text/css "access plus 1 week"
+  ExpiresByType application/javascript "access plus 1 week"
+  ExpiresByType text/javascript "access plus 1 week"
+
+  # HTML — 1 hora (pra permitir updates rápidos do blog)
+  ExpiresByType text/html "access plus 1 hour"
+</IfModule>
+
+# ── Cache-Control headers ────────────────────────────────────
+<IfModule mod_headers.c>
+  <FilesMatch "\.(woff2|webp|jpe?g|png|svg|ico)$">
+    Header set Cache-Control "public, max-age=31536000, immutable"
+  </FilesMatch>
+  <FilesMatch "\.(css|js)$">
+    Header set Cache-Control "public, max-age=604800"
+  </FilesMatch>
+  <FilesMatch "\.html$">
+    Header set Cache-Control "public, max-age=3600, must-revalidate"
+  </FilesMatch>
+
+  # Segurança básica
+  Header set X-Content-Type-Options "nosniff"
+  Header set Referrer-Policy "strict-origin-when-cross-origin"
+  Header set X-Frame-Options "SAMEORIGIN"
+</IfModule>
+
+# ── Charset ──────────────────────────────────────────────────
+AddDefaultCharset UTF-8
+
+# ── MIME types corretos ──────────────────────────────────────
+<IfModule mod_mime.c>
+  AddType font/woff2 .woff2
+  AddType image/webp .webp
+</IfModule>
+
+# ── Rewrite engine ───────────────────────────────────────────
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+
+  # Forçar HTTPS
+  RewriteCond %{HTTPS} !=on
+  RewriteRule ^(.*)$ https://%{HTTP_HOST}/$1 [R=301,L]
+
+  # Forçar www
+  RewriteCond %{HTTP_HOST} ^doome\.com\.br$ [NC]
+  RewriteRule ^(.*)$ https://www.doome.com.br/$1 [R=301,L]
+
+  # Remover .html — redireciona requests pra URLs sem extensão
+  RewriteCond %{THE_REQUEST} \s/+(.+?)\.html[\s?] [NC]
+  RewriteRule ^ /%1/ [R=301,L]
+
+  # Garantir trailing slash em diretórios
+  RewriteCond %{REQUEST_FILENAME} -d
+  RewriteRule ^(.+[^/])$ /$1/ [R=301,L]
+</IfModule>
+
+# ── Páginas de erro ──────────────────────────────────────────
+ErrorDocument 404 /

@@ -1,38 +1,38 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
-  <!--
-    Sitemap inicial. SerÃ¡ regenerado automaticamente pela MAVEI sempre que
-    um post novo de blog for publicado (via automations/seo/build-sitemap.js).
-    Placeholders doome.com.br sÃ£o substituÃ­dos pelo create-client-repo.
-  -->
-
   <url>
-    <loc>https://doome.com.br/</loc>
+    <loc>https://www.doome.com.br/</loc>
     <changefreq>weekly</changefreq>
     <priority>1.00</priority>
   </url>
 
   <url>
-    <loc>https://doome.com.br/sobre.html</loc>
+    <loc>https://www.doome.com.br/sobre/</loc>
     <changefreq>monthly</changefreq>
     <priority>0.85</priority>
   </url>
 
   <url>
-    <loc>https://doome.com.br/servicos.html</loc>
+    <loc>https://www.doome.com.br/projetos/</loc>
     <changefreq>monthly</changefreq>
     <priority>0.90</priority>
   </url>
 
   <url>
-    <loc>https://doome.com.br/contato.html</loc>
+    <loc>https://www.doome.com.br/servicos/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.90</priority>
+  </url>
+
+  <url>
+    <loc>https://www.doome.com.br/contato/</loc>
     <changefreq>monthly</changefreq>
     <priority>0.80</priority>
   </url>
 
   <url>
-    <loc>https://doome.com.br/blog/</loc>
+    <loc>https://www.doome.com.br/blog/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.85</priority>
   </url>

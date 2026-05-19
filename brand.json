@@ -1,44 +1,121 @@
 {
   "slug": "doome",
-  "nome": "Doome Projetos",
+  "nome": "Doome Projetos e Obras",
   "nome_curto": "Doome",
   "segmento": "Arquitetura e Engenharia",
   "cidade": "Americana, SP",
   "site": "www.doome.com.br",
-  "whatsapp": "+55 (19) 99299‑4853",
-  "whatsapp_mensagem": "Olá! Vim pelo site e gostaria de mais informações.",
+  "whatsapp": "+55 (19) 99299-4853",
+  "whatsapp_mensagem": "Olá, Doome! Vi o site de vocês e gostaria de conversar sobre um projeto.",
   "email": "renan@doome.com.br",
+  "endereco": {
+    "rua": "Rua Orlando Dei Santi, 2154",
+    "cidade": "Americana",
+    "estado": "SP",
+    "cep": "13469-000",
+    "lat": -22.7386,
+    "lng": -47.3319
+  },
   "instagram": {
-    "ativo": false,
+    "ativo": true,
+    "handle": "doomeprojetos",
+    "url": "https://www.instagram.com/doomeprojetos/",
     "posts_por_semana": 3,
-    "dias_post": [
-      2,
-      3,
-      4
-    ]
+    "dias_post": [2, 3, 4]
+  },
+  "facebook": {
+    "ativo": true,
+    "url": "https://www.facebook.com/doomeprojetos/"
   },
   "ga4_id": "",
   "cores": {
-    "primaria": "#ffffff",
-    "destaque": "#F2C94C",
-    "fundo": "#F6F4F1"
+    "primaria": "#14181B",
+    "destaque": "#1F3A47",
+    "fundo": "#F2EFEA"
+  },
+  "cores_extras": {
+    "ink": "#14181B",
+    "graphite": "#2A2F33",
+    "paper": "#F2EFEA",
+    "paper_warm": "#EDE8E0",
+    "paper_cool": "#E6E8EB",
+    "mist": "#B8C2C9",
+    "mist_deep": "#8A98A2",
+    "petrol": "#1F3A47",
+    "petrol_soft": "#2C4E5E"
   },
   "tipografia": {
-    "titulo": "Cormorant Garamond",
-    "corpo": "Inter Tight",
+    "titulo": "Montserrat",
+    "corpo": "Montserrat",
+    "mono": "JetBrains Mono",
     "google_fonts_url": ""
   },
   "marca": {
-    "proposta_valor": "Arquitetura e Engenharia Exclusiva para voce",
-    "publico": "entre 26 e 55 anos, ambos os sexos",
-    "diferenciais": [],
-    "tom_de_voz": "Profissional"
+    "proposta_valor": "Arquitetura, engenharia e gestão de obras integradas sob o mesmo teto — do conceito à entrega, com coerência técnica e estética em cada etapa.",
+    "manifesto": "Transformar ideias em espaços reais.",
+    "publico": "Clientes residenciais e comerciais entre 26 e 55 anos em Americana, Campinas e região metropolitana, que buscam projeto e obra integrados com acompanhamento próximo.",
+    "diferenciais": [
+      "Arquitetura, engenharia civil e gestão de obras desenvolvidas internamente — sem terceirização",
+      "Mais de 180 projetos entregues em 23 cidades desde 2021",
+      "94 mil m² construídos e acompanhados",
+      "Processo estruturado em 5 fases: briefing, estudo preliminar, anteprojeto, aprovações e execução",
+      "Fiscalização semanal com relatório fotográfico e comunicação direta com o cliente"
+    ],
+    "tom_de_voz": "Profissional, editorial, sereno. Frases curtas. Confiança técnica sem rebuscamento.",
+    "ano_fundacao": "2021"
+  },
+  "equipe": [
+    {
+      "nome": "Leonardo Matsui",
+      "cargo": "Coordenador · Projetos de Engenharia e Gestão de Obra",
+      "formacao": "Técnico em Edificações — ETEC 2013 · Engenheiro Civil — EEP 2018",
+      "registro": "CREA-SP: 5070436125"
+    },
+    {
+      "nome": "Renan Dias",
+      "cargo": "Coordenador · Projetos Arquitetônicos e Setor Comercial",
+      "formacao": "Arquiteto e Urbanista — Centro Universitário Belas Artes/SP 2018",
+      "registro": "CAU/SP: A144736-0"
+    }
+  ],
+  "servicos": [
+    {
+      "nome": "Arquitetura",
+      "descricao": "Projetos pensados para cada espaço, com criatividade, técnica e atenção ao detalhe. Do esboço à documentação completa.",
+      "itens": ["Projeto Residencial", "Projeto Comercial", "Projeto de Interiores", "Paisagismo", "Documentação técnica", "Aprovação em prefeitura"]
+    },
+    {
+      "nome": "Engenharia Civil",
+      "descricao": "Projetos de engenharia desenvolvidos internamente, em compatibilidade com o projeto arquitetônico. Coerência técnica e menos retrabalho no canteiro.",
+      "itens": ["Projetos Estruturais", "Projetos Elétricos", "Projetos Hidráulicos", "SPDA / Aterramento", "Climatização", "ART / RRT"]
+    },
+    {
+      "nome": "Gestão de Obras",
+      "descricao": "Acompanhamento integral do canteiro à entrega. Cronograma físico-financeiro, compras técnicas, fiscalização semanal e relatórios fotográficos.",
+      "itens": ["Cronograma físico-financeiro", "Compras técnicas", "Fiscalização semanal", "Relatórios fotográficos", "Gestão de fornecedores", "Controle de qualidade"]
+    }
+  ],
+  "numeros": {
+    "anos": "4+",
+    "projetos": "180+",
+    "m2": "94k",
+    "cidades": "23"
   },
   "blog": {
     "ativo": true,
     "frequencia": "semanal",
-    "topicos_foco": []
+    "topicos_foco": [
+      "Arquitetura residencial",
+      "Projetos comerciais",
+      "Design de interiores",
+      "Gestão de obras",
+      "Engenharia civil",
+      "Tendências de arquitetura"
+    ]
   },
-  "briefing": {},
-  "briefing_done": false
+  "briefing": {
+    "fonte": "Site atual da DOOME (doome.com.br) — extraído em 2026-05-19",
+    "estilo_visual": "Editorial luxuoso, minimalista, com toques de cinza-azulado vindos do logo. Imagens em P&B que ganham cor no hover. Tipografia Montserrat 300 em escala grande com letter-spacing negativo."
+  },
+  "briefing_done": true
 }

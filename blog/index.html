@@ -3,147 +3,458 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Blog | Doome Projetos</title>
-<meta name="description" content="Artigos sobre Arquitetura e Engenharia para [PÃBLICO]. Dicas prÃ¡ticas de [TÃPICO PRINCIPAL].">
-<link rel="canonical" href="https://doome.com.br/blog/">
-<link rel="icon" type="image/svg+xml" href="/assets/images/favicon.svg">
+<title>Blog Doome | Arquitetura, Engenharia e Gestão de Obras</title>
+<meta name="description" content="Artigos sobre arquitetura, engenharia e gestão de obras. Dicas práticas e tendências do mercado para quem está planejando construir ou reformar.">
+<meta name="author" content="Doome Projetos e Obras">
+<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+<meta name="geo.region" content="BR-SP">
+<meta name="geo.placename" content="Americana, São Paulo">
+<meta name="theme-color" content="#14181B">
+<link rel="canonical" href="https://www.doome.com.br/blog/">
 
-<!-- Fontes self-hosted (latin + latin-ext WOFF2) -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Doome Projetos e Obras">
+<meta property="og:title" content="Blog | Doome Projetos e Obras">
+<meta property="og:description" content="Artigos sobre arquitetura, engenharia e gestão de obras.">
+<meta property="og:url" content="https://www.doome.com.br/blog/">
+<meta property="og:image" content="https://www.doome.com.br/assets/image-01.webp">
+<meta property="og:locale" content="pt_BR">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Blog | Doome Projetos e Obras">
+<meta name="twitter:description" content="Artigos sobre arquitetura, engenharia e gestão de obras.">
+<meta name="twitter:image" content="https://www.doome.com.br/assets/image-01.webp">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Blog",
+  "url": "https://www.doome.com.br/blog/",
+  "name": "Blog Doome Projetos e Obras",
+  "description": "Artigos sobre arquitetura, engenharia e gestão de obras em Americana SP.",
+  "inLanguage": "pt-BR",
+  "publisher": {
+    "@type": "Organization",
+    "name": "Doome Projetos e Obras",
+    "url": "https://www.doome.com.br/",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://www.doome.com.br/assets/image-14.webp"
+    }
+  },
+  "about": [
+    {"@type": "Thing", "name": "Arquitetura"},
+    {"@type": "Thing", "name": "Engenharia Civil"},
+    {"@type": "Thing", "name": "Gestão de Obras"},
+    {"@type": "Thing", "name": "Design de Interiores"}
+  ]
+}
+</script>
+
+<link rel="icon" type="image/webp" href="/assets/image-02.webp">
+<link rel="apple-touch-icon" href="/assets/image-03.webp">
+<link rel="manifest" href="/manifest.json">
+<link rel="preload" href="/fonts/montserrat-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/fonts/montserrat-400-latin-ext.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/fonts/fonts.css">
+<link rel="stylesheet" href="/lightbox.css">
 
 <style>
+  /* ====== Tokens DOOME ====== */
   :root {
-    --primaria: #111111; --destaque: #F2C94C; --fundo: #F6F4F1; --fundo2: #EFEDE8;
-    --texto: #111111; --texto-suave: rgba(17,17,17,0.55);
-    --serif: 'Cormorant Garamond', serif; --sans: 'Inter Tight', system-ui, sans-serif;
-    --mono: 'JetBrains Mono', monospace; --gutter: clamp(20px, 4vw, 56px);
+    --paper: #F2EFEA; --paper-warm: #EDE8E0;
+    --mist: #B8C2C9; --mist-deep: #8A98A2;
+    --graphite: #2A2F33; --ink: #14181B;
+    --petrol: #1F3A47; --petrol-soft: #2C4E5E;
+    --line: rgba(20,24,27,0.12);
+    --serif: "Montserrat", -apple-system, BlinkMacSystemFont, sans-serif;
+    --sans:  "Montserrat", -apple-system, BlinkMacSystemFont, sans-serif;
+    --mono:  "JetBrains Mono", ui-monospace, monospace;
+    --gutter: clamp(20px, 4vw, 64px);
+    --section: clamp(80px, 12vw, 200px);
+    --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
   }
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-  body { background: var(--fundo); color: var(--texto); font-family: var(--sans); -webkit-font-smoothing: antialiased; }
-  a { color: inherit; text-decoration: none; }
-
-  .nav {
-    position: sticky; top: 0; z-index: 100;
-    display: flex; align-items: center; justify-content: space-between;
-    padding: 18px var(--gutter);
-    background: rgba(246,244,241,.92); backdrop-filter: blur(16px);
-    border-bottom: 1px solid rgba(17,17,17,.08);
-    font-family: var(--mono); font-size: 10px; letter-spacing: .2em; text-transform: uppercase;
+  html, body {
+    background: var(--paper); color: var(--graphite);
+    font-family: var(--sans); font-size: 16px; line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
   }
-  .nav a { color: rgba(17,17,17,.5); transition: color .2s; }
-  .nav a:hover { color: var(--texto); }
+  body { overflow-x: hidden; }
+  img { max-width: 100%; display: block; }
+  a { color: inherit; text-decoration: none; }
+  ::selection { background: var(--petrol); color: var(--paper); }
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-thumb { background: var(--mist); }
+  .serif { font-family: var(--serif); font-weight: 300; letter-spacing: -0.02em; line-height: 0.95; }
+  .mono { font-family: var(--mono); font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; }
 
-  .blog-header { padding: 72px var(--gutter) 56px; max-width: 800px; margin: 0 auto; }
-  .blog-header__eyebrow { font-family: var(--mono); font-size: 10px; letter-spacing: .28em; text-transform: uppercase; color: var(--destaque); margin-bottom: 16px; }
-  .blog-header h1 { font-family: var(--serif); font-size: clamp(36px, 5vw, 64px); font-weight: 400; line-height: .96; }
-  .blog-header p { font-size: 17px; color: var(--texto-suave); margin-top: 16px; }
+  /* ====== NAV (idêntico às páginas internas) ====== */
+  .nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: grid; grid-template-columns: auto 1fr auto;
+    align-items: center; padding: 14px var(--gutter); gap: 40px;
+    background: rgba(242, 239, 234, 0.95);
+    backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+    border-bottom: 1px solid var(--line); color: var(--graphite);
+  }
+  .nav__brand { background: none; border: 0; padding: 0; display: inline-flex; align-items: center; }
+  .nav__brand img { height: 22px; width: auto; }
+  .nav__items { display: flex; gap: 32px; justify-content: center; }
+  .nav__item {
+    padding: 8px 0; color: inherit; font-size: 14px;
+    display: inline-flex; align-items: baseline; gap: 6px;
+    opacity: 0.66; transition: opacity 0.3s; position: relative;
+  }
+  .nav__item:hover, .nav__item.is-active { opacity: 1; }
+  .nav__item.is-active::after {
+    content: ""; position: absolute; left: 0; right: 0; bottom: 2px;
+    height: 1px; background: currentColor;
+  }
+  .nav__n { font-size: 9px; opacity: 0.55; font-family: var(--mono); }
+  .nav__cta {
+    display: inline-flex; align-items: center; gap: 12px;
+    font-size: 13px; padding: 10px 18px;
+    border: 1px solid currentColor; border-radius: 999px;
+    transition: background 0.4s, color 0.4s;
+  }
+  .nav__cta:hover { background: var(--graphite); color: var(--paper); }
+  @media (max-width: 900px) {
+    .nav { grid-template-columns: auto auto; }
+    .nav__items { display: none; }
+    .nav__cta span { display: none; }
+  }
 
-  .blog-wrap { max-width: 1160px; margin: 0 auto; padding: 0 var(--gutter) 96px; }
+  /* ====== PAGE HEADER (idêntico às páginas internas) ====== */
+  .page-header {
+    background: var(--ink); color: var(--paper);
+    padding: clamp(120px, 16vw, 220px) var(--gutter) clamp(60px, 8vw, 120px);
+  }
+  .page-header .eyebrow {
+    color: var(--mist); margin-bottom: 28px;
+    font-family: var(--mono); font-size: 11px;
+    letter-spacing: 0.18em; text-transform: uppercase;
+  }
+  .page-header__title {
+    font-size: clamp(48px, 7vw, 110px);
+    font-weight: 300; letter-spacing: -0.03em;
+    line-height: 0.95; margin: 0 0 32px; font-family: var(--serif);
+  }
+  .page-header__title em {
+    font-style: italic; opacity: 0.8; font-weight: 300;
+  }
+  .page-header__lead {
+    font-size: clamp(15px, 1.1vw, 18px);
+    color: rgba(242, 239, 234, 0.72);
+    max-width: 52ch; line-height: 1.65; margin: 0;
+  }
 
-  /* POST EM DESTAQUE */
+  /* ====== Container do blog ====== */
+  .blog-wrap {
+    max-width: 1600px; margin: 0 auto;
+    padding: clamp(60px, 10vw, 120px) var(--gutter) var(--section);
+  }
+
+  /* ====== POST EM DESTAQUE ====== */
   .blog-featured {
     display: grid; grid-template-columns: 1fr 1fr;
-    background: var(--primaria); color: #fff;
-    margin-bottom: 48px; text-decoration: none;
-    transition: opacity .2s;
+    background: var(--ink); color: var(--paper);
+    margin-bottom: 80px; text-decoration: none;
+    transition: opacity 0.3s var(--ease-out);
+    overflow: hidden; border-radius: 2px;
   }
-  .blog-featured:hover { opacity: .92; }
+  .blog-featured:hover { opacity: 0.94; }
   .blog-featured__cover {
-    min-height: 400px; background: rgba(255,255,255,.06);
-    display: flex; align-items: flex-start; padding: 24px;
+    min-height: 400px;
+    background: var(--petrol);
+    display: flex; align-items: flex-start; padding: 32px;
+    position: relative;
   }
   .blog-featured__badge {
-    font-family: var(--mono); font-size: 9px; letter-spacing: .24em; text-transform: uppercase;
-    background: var(--destaque); color: var(--primaria); padding: 6px 12px;
+    font-family: var(--mono); font-size: 9px;
+    letter-spacing: 0.24em; text-transform: uppercase;
+    background: var(--paper); color: var(--ink);
+    padding: 8px 14px; border-radius: 999px;
   }
   .blog-featured__content {
-    padding: 48px; display: flex; flex-direction: column; justify-content: space-between;
+    padding: 60px 48px; display: flex; flex-direction: column;
+    justify-content: space-between; gap: 32px;
   }
-  .blog-featured__tag { font-family: var(--mono); font-size: 9px; letter-spacing: .28em; text-transform: uppercase; color: var(--destaque); margin-bottom: 16px; }
-  .blog-featured__title { font-family: var(--serif); font-size: clamp(26px, 3vw, 44px); font-weight: 400; line-height: 1.05; margin-bottom: 16px; }
-  .blog-featured__excerpt { font-size: 15px; color: rgba(255,255,255,.6); line-height: 1.65; }
-  .blog-featured__footer { display: flex; justify-content: space-between; align-items: flex-end; margin-top: 32px; }
-  .blog-featured__meta { font-family: var(--mono); font-size: 9.5px; letter-spacing: .14em; text-transform: uppercase; color: rgba(255,255,255,.35); display: flex; gap: 12px; }
-  .blog-featured__link { font-family: var(--mono); font-size: 9.5px; letter-spacing: .18em; text-transform: uppercase; color: var(--destaque); }
+  .blog-featured__tag {
+    font-family: var(--mono); font-size: 10px;
+    letter-spacing: 0.28em; text-transform: uppercase;
+    color: var(--mist); margin-bottom: 16px;
+  }
+  .blog-featured__title {
+    font-family: var(--serif);
+    font-size: clamp(28px, 3.5vw, 52px);
+    font-weight: 300; letter-spacing: -0.02em;
+    line-height: 1.05;
+  }
+  .blog-featured__excerpt {
+    font-size: 15px;
+    color: rgba(242, 239, 234, 0.65);
+    line-height: 1.7; margin-top: 20px;
+    max-width: 48ch;
+  }
+  .blog-featured__footer {
+    display: flex; justify-content: space-between;
+    align-items: flex-end; gap: 20px;
+  }
+  .blog-featured__meta {
+    font-family: var(--mono); font-size: 10px;
+    letter-spacing: 0.14em; text-transform: uppercase;
+    color: rgba(242, 239, 234, 0.45);
+    display: flex; gap: 12px; flex-wrap: wrap;
+  }
+  .blog-featured__link {
+    font-family: var(--mono); font-size: 10px;
+    letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--paper);
+    border-bottom: 1px solid var(--mist);
+    padding-bottom: 4px;
+  }
+  @media (max-width: 800px) {
+    .blog-featured { grid-template-columns: 1fr; }
+    .blog-featured__cover { min-height: 240px; }
+    .blog-featured__content { padding: 40px 28px; }
+  }
 
-  /* GRID DE CARDS */
-  .blog-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 24px; }
-  .blog-card a { display: flex; flex-direction: column; height: 100%; background: var(--fundo2); transition: opacity .2s; }
-  .blog-card a:hover { opacity: .85; }
+  /* ====== GRID DE CARDS ====== */
+  .blog-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 40px;
+  }
+  .blog-card a {
+    display: flex; flex-direction: column; height: 100%;
+    background: var(--paper-warm);
+    transition: transform 0.5s var(--ease-out), box-shadow 0.5s var(--ease-out);
+    border-radius: 2px; overflow: hidden;
+    border: 1px solid var(--line);
+  }
+  .blog-card a:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 20px 40px rgba(20, 24, 27, 0.08);
+  }
   .blog-card__cover {
-    height: 180px; display: flex; align-items: flex-end; padding: 16px;
-    background: var(--primaria);
+    height: 200px;
+    background: var(--petrol);
+    display: flex; align-items: flex-end; padding: 20px;
+    position: relative; overflow: hidden;
+  }
+  .blog-card__cover img {
+    position: absolute; inset: 0;
+    width: 100%; height: 100%; object-fit: cover;
+    filter: grayscale(0.4) contrast(1.05);
+    transition: filter 0.6s var(--ease-out), transform 0.7s var(--ease-out);
+  }
+  .blog-card a:hover .blog-card__cover img {
+    filter: grayscale(0) contrast(1.05);
+    transform: scale(1.04);
   }
   .blog-card__cover-label {
-    font-family: var(--mono); font-size: 9px; letter-spacing: .22em; text-transform: uppercase;
-    color: var(--destaque);
+    position: relative; z-index: 1;
+    font-family: var(--mono); font-size: 9px;
+    letter-spacing: 0.22em; text-transform: uppercase;
+    color: var(--paper);
+    background: rgba(20, 24, 27, 0.6);
+    padding: 6px 12px; border-radius: 999px;
+    backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
   }
-  .blog-card__body { padding: 24px 24px 0; flex: 1; }
-  .blog-card__tag { font-family: var(--mono); font-size: 9px; letter-spacing: .24em; text-transform: uppercase; color: var(--destaque); margin-bottom: 10px; }
-  .blog-card__body h2 { font-family: var(--serif); font-size: 24px; font-weight: 400; line-height: 1.15; margin-bottom: 10px; }
-  .blog-card__excerpt { font-size: 14px; color: var(--texto-suave); line-height: 1.65; }
+  .blog-card__body { padding: 28px 28px 12px; flex: 1; }
+  .blog-card__tag {
+    font-family: var(--mono); font-size: 10px;
+    letter-spacing: 0.24em; text-transform: uppercase;
+    color: var(--mist-deep); margin-bottom: 14px;
+  }
+  .blog-card__body h2 {
+    font-family: var(--serif);
+    font-size: clamp(20px, 1.7vw, 26px);
+    font-weight: 300; letter-spacing: -0.02em;
+    line-height: 1.15; margin-bottom: 12px;
+  }
+  .blog-card__excerpt {
+    font-size: 14px; color: var(--mist-deep);
+    line-height: 1.7;
+  }
   .blog-card__meta {
-    padding: 16px 24px 20px; font-family: var(--mono); font-size: 9.5px;
-    letter-spacing: .14em; text-transform: uppercase; color: var(--texto-suave);
-    display: flex; gap: 8px; align-items: center; justify-content: space-between;
+    padding: 16px 28px 24px;
+    font-family: var(--mono); font-size: 10px;
+    letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--mist-deep);
+    display: flex; gap: 8px; align-items: center;
+    justify-content: space-between;
+    border-top: 1px solid var(--line);
+    margin-top: 16px;
   }
-  .blog-card__read { color: var(--texto); }
+  .blog-card__read {
+    color: var(--graphite);
+    border-bottom: 1px solid currentColor;
+    padding-bottom: 2px;
+  }
 
-  .blog-footer { text-align: center; padding: 40px var(--gutter); border-top: 1px solid rgba(17,17,17,.1); }
-  .blog-footer a { font-family: var(--mono); font-size: 10px; letter-spacing: .2em; text-transform: uppercase; color: var(--texto-suave); }
+  /* ====== Estado vazio (até MAVEI gerar posts) ====== */
+  .blog-empty {
+    text-align: center;
+    padding: 80px var(--gutter);
+    color: var(--mist-deep);
+  }
+  .blog-empty .mono {
+    color: var(--mist-deep);
+    margin-bottom: 16px;
+  }
+  .blog-empty p {
+    font-size: 16px;
+    max-width: 44ch;
+    margin: 0 auto;
+    line-height: 1.7;
+  }
 
-  @media (max-width: 640px) {
-    .blog-featured { grid-template-columns: 1fr; }
-    .blog-featured__cover { min-height: 160px; }
+  /* ====== FOOTER (idêntico às páginas internas) ====== */
+  .footer {
+    background: var(--ink); color: var(--paper);
+    padding: var(--section) var(--gutter) 40px;
+  }
+  .footer__top {
+    padding-bottom: 100px;
+    border-bottom: 1px solid rgba(242, 239, 234, 0.16);
+  }
+  .footer__manifesto {
+    font-size: clamp(48px, 7vw, 120px);
+    letter-spacing: -0.025em; font-weight: 300;
+    line-height: 0.95; margin: 0; font-family: var(--serif);
+  }
+  .footer__manifesto em { font-style: italic; opacity: 0.8; font-weight: 300; }
+  .footer__grid {
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    gap: 40px; padding: 60px 0 80px;
+    border-bottom: 1px solid rgba(242, 239, 234, 0.16);
+  }
+  .footer__col p { margin: 10px 0 0; font-size: 14px; line-height: 1.7; color: rgba(242, 239, 234, 0.78); }
+  .footer__col .eyebrow {
+    color: var(--mist); margin: 0;
+    font-family: var(--mono); font-size: 11px;
+    letter-spacing: 0.18em; text-transform: uppercase;
+  }
+  .footer__col a { border-bottom: 1px solid transparent; transition: border-color 0.3s; }
+  .footer__col a:hover { border-bottom-color: currentColor; }
+  .footer__base { display: flex; justify-content: center; padding-top: 40px; }
+  .footer__base p { font-family: var(--mono); font-size: 10px; opacity: 0.45; margin: 0; }
+  @media (max-width: 800px) {
+    .footer__grid { grid-template-columns: repeat(2, 1fr); }
   }
 </style>
 </head>
 <body>
 
+<!-- NAV (idêntica às páginas internas) -->
 <nav class="nav">
-  <a href="/">â Doome Projetos</a>
-  <span>BLOG</span>
+  <a href="../" class="nav__brand" aria-label="Doome — Home">
+    <img src="../assets/image-15.webp" alt="DOOME" width="120" height="22" decoding="async">
+  </a>
+  <div class="nav__items">
+    <a href="../" class="nav__item"><span class="nav__n">00</span> Home</a>
+    <a href="../sobre/" class="nav__item"><span class="nav__n">01</span> Sobre</a>
+    <a href="../projetos/" class="nav__item"><span class="nav__n">02</span> Projetos</a>
+    <a href="../servicos/" class="nav__item"><span class="nav__n">03</span> Serviços</a>
+    <a href="../contato/" class="nav__item"><span class="nav__n">04</span> Contato</a>
+    <a href="../blog/" class="nav__item is-active"><span class="nav__n">05</span> Blog</a>
+  </div>
+  <a href="https://api.whatsapp.com/send?phone=5519992994853&text=Ol%C3%A1%2C+Doome%21+Vi+o+site+de+voc%C3%AAs+e+gostaria+de+conversar+sobre+um+projeto."
+     class="nav__cta" target="_blank" rel="noopener noreferrer" data-cta="nav-blog">
+    <span>Fale conosco</span>
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg>
+  </a>
 </nav>
 
-<header class="blog-header">
-  <p class="blog-header__eyebrow">Blog</p>
-  <h1>[TÃTULO DO BLOG â ex: "Dicas de saÃºde bucal"]</h1>
-  <p>[SubtÃ­tulo: para quem Ã© e o que vai encontrar]</p>
-</header>
+<main>
+  <!-- HEADER -->
+  <header class="page-header">
+    <p class="eyebrow">05 — Blog</p>
+    <h1 class="page-header__title">Ideias.<br>Projeto.<br><em>Obra.</em></h1>
+    <p class="page-header__lead">Artigos sobre arquitetura, engenharia e gestão de obras. Tendências, dicas práticas e bastidores de quem vive o canteiro todos os dias.</p>
+  </header>
 
-<main class="blog-wrap">
+  <div class="blog-wrap">
 
-  <!-- POST EM DESTAQUE â gerado automaticamente -->
-  <a href="#" class="blog-featured" aria-label="Ler post em destaque">
-    <div class="blog-featured__cover">
-      <div class="blog-featured__badge">Em destaque</div>
-    </div>
-    <div class="blog-featured__content">
-      <div>
-        <div class="blog-featured__tag">TAG</div>
-        <h2 class="blog-featured__title">O primeiro post serÃ¡ gerado automaticamente pela MAVEI</h2>
-        <p class="blog-featured__excerpt">Quando o blog for ativado na plataforma MAVEI, os posts serÃ£o gerados e publicados aqui automaticamente toda semana.</p>
+    <!-- POST EM DESTAQUE — gerado automaticamente pela MAVEI -->
+    <a href="#" class="blog-featured" aria-label="Ler post em destaque">
+      <div class="blog-featured__cover">
+        <div class="blog-featured__badge">Em destaque</div>
       </div>
-      <div class="blog-featured__footer">
-        <div class="blog-featured__meta">
-          <time>-- --- ----</time>
-          <span>Â·</span>
-          <span>- MIN DE LEITURA</span>
+      <div class="blog-featured__content">
+        <div>
+          <div class="blog-featured__tag">Arquitetura</div>
+          <h2 class="blog-featured__title">O primeiro post será publicado em breve.</h2>
+          <p class="blog-featured__excerpt">Estamos preparando o blog da Doome com artigos sobre arquitetura, engenharia e gestão de obras. Em breve, conteúdo novo toda semana.</p>
         </div>
-        <span class="blog-featured__link">Ler artigo</span>
+        <div class="blog-featured__footer">
+          <div class="blog-featured__meta">
+            <time>EM BREVE</time>
+            <span>·</span>
+            <span>POSTS SEMANAIS</span>
+          </div>
+          <span class="blog-featured__link">Em produção</span>
+        </div>
+      </div>
+    </a>
+
+    <!-- GRID DE CARDS — gerado automaticamente -->
+    <div class="blog-grid">
+      <div class="blog-empty" style="grid-column: 1 / -1;">
+        <p class="mono">Conteúdo em produção</p>
+        <p>Os próximos artigos aparecerão aqui automaticamente assim que forem publicados pela equipe Doome.</p>
       </div>
     </div>
-  </a>
 
-  <div class="blog-grid">
-  <!-- CARDS â gerado automaticamente -->
   </div>
-
 </main>
 
-<footer class="blog-footer">
-  <a href="/">â Voltar ao site</a>
+<!-- FOOTER (idêntico às páginas internas) -->
+<footer class="footer">
+  <div class="footer__top">
+    <p class="footer__manifesto serif">Transformar<br>ideias em<br><em>espaços reais.</em></p>
+  </div>
+  <div class="footer__grid">
+    <div class="footer__col">
+      <p class="eyebrow">Navegação</p>
+      <p><a href="../">Home</a></p>
+      <p><a href="../sobre/">Sobre</a></p>
+      <p><a href="../projetos/">Projetos</a></p>
+      <p><a href="../servicos/">Serviços</a></p>
+      <p><a href="../contato/">Contato</a></p>
+      <p><a href="../blog/">Blog</a></p>
+    </div>
+    <div class="footer__col">
+      <p class="eyebrow">Serviços</p>
+      <p>Arquitetura Residencial</p>
+      <p>Arquitetura Comercial</p>
+      <p>Projeto de Interiores</p>
+      <p>Engenharia Civil</p>
+      <p>Gestão de Obras</p>
+    </div>
+    <div class="footer__col">
+      <p class="eyebrow">Contato</p>
+      <p><a href="tel:+5519992994853">+55 19 99299-4853</a></p>
+      <p><a href="mailto:renan@doome.com.br">renan@doome.com.br</a></p>
+      <p>Rua Orlando Dei Santi, 2154<br>Americana / SP</p>
+    </div>
+    <div class="footer__col">
+      <p class="eyebrow">Redes</p>
+      <p><a href="https://www.instagram.com/doomeprojetos/" target="_blank" rel="noopener">Instagram</a></p>
+      <p><a href="https://www.facebook.com/doomeprojetos/" target="_blank" rel="noopener">Facebook</a></p>
+    </div>
+  </div>
+  <div class="footer__base">
+    <p>&copy; 2026 Doome Projetos e Obras — Americana, SP</p>
+    <span class="footer__base-sep" aria-hidden="true"></span>
+    <a href="https://mavei.com.br/" target="_blank" rel="noopener noreferrer" class="mavei-credit" data-cta="footer-mavei" aria-label="Site desenvolvido por MAVEI Digital">
+      <span class="mavei-credit__label">Site por</span>
+      <img src="/assets/mavei-logo-white.webp" alt="MAVEI Digital" width="80" height="14" loading="lazy" decoding="async">
+    </a>
+  </div>
 </footer>
 
+<script src="/main.js" defer></script>
 </body>
 </html>
