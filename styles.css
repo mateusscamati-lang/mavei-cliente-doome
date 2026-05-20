@@ -43,7 +43,7 @@
 
   /* Espaços */
   --gutter:  clamp(20px, 4vw, 64px);
-  --section: clamp(80px, 12vw, 200px);
+  --section: clamp(60px, 7vw, 120px);
   --max-w:   1800px;
   --radius:  2px;
 
@@ -158,7 +158,7 @@ body:not([data-page="home"]) .nav {
   display: inline-flex;
   align-items: center;
 }
-.nav__brand img { height: 22px; width: auto; }
+.nav__brand img { height: 32px; width: auto; }
 .nav__logo { display: inline-flex; transition: opacity .4s var(--ease-out); }
 /* Home topo (transparente) → mostra logo branca */
 .nav__logo--dark { display: none; }
@@ -895,7 +895,7 @@ body:not([data-page="home"]) .nav__logo--dark  { display: inline-flex; }
 
 /* ── Manifesto ──────────────────────────────────────────────── */
 .manifesto { padding: var(--section) var(--gutter); max-width: 1600px; margin: 0 auto; display: flex; flex-direction: column; align-items: center; text-align: center; }
-.manifesto__eyebrow { margin-bottom: 60px; display: flex; align-items: center; justify-content: center; }
+.manifesto__eyebrow { margin-bottom: 32px; display: flex; align-items: center; justify-content: center; }
 .manifesto__text {
   font-size: clamp(24px,3vw,52px);
   font-weight: 300; letter-spacing: -.025em;
@@ -904,33 +904,41 @@ body:not([data-page="home"]) .nav__logo--dark  { display: inline-flex; }
 }
 .manifesto__faded { opacity: .36; }
 
-/* ── Projetos em destaque (home) ────────────────────────────── */
-.projects { padding: var(--section) var(--gutter); max-width: 1200px; margin: 0 auto; }
-.projects__header { display: flex; flex-direction: column; align-items: center; text-align: center; gap: 40px; margin-bottom: 100px; }
+/* ── Projetos em destaque (home) — GRID 2-col ──────────────── */
+.projects { padding: var(--section) var(--gutter); max-width: 1600px; margin: 0 auto; }
+.projects__header { display: flex; flex-direction: column; align-items: center; text-align: center; gap: 24px; margin-bottom: 56px; }
 .projects__header .eyebrow { display: flex; align-items: center; justify-content: center; }
 .projects__title { font-size: clamp(26px,3.2vw,54px); font-weight: 300; letter-spacing: -.025em; line-height: 1.05; max-width: 18ch; margin: 0 auto; }
-.projects__grid { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(40px,5vw,80px) clamp(40px,4vw,60px); }
-@media (max-width: 800px) { .projects__grid { grid-template-columns: 1fr; } }
+
+.projects__grid {
+  display: grid;
+  /* cada coluna tem MAX 500px — em ultrawide os cards param de crescer */
+  grid-template-columns: repeat(2, minmax(0, 500px));
+  justify-content: center;
+  gap: clamp(32px,4vw,64px) clamp(32px,4vw,80px);
+}
+@media (max-width: 800px) { .projects__grid { grid-template-columns: minmax(0, 500px); } }
 .project { display: block; cursor: pointer; }
-.project--r { margin-top: 120px; }
+.project--r { margin-top: 60px; }
 @media (max-width: 800px) { .project--r { margin-top: 0; } }
-.project__media { overflow: hidden; aspect-ratio: 4/5; background: var(--mist); margin-bottom: 22px; }
+.project__media { overflow: hidden; aspect-ratio: 4/5; background: var(--mist); margin-bottom: 18px; }
 .project__media img {
   width: 100%; height: 100%; object-fit: cover;
   transition: transform 1.4s var(--ease-out), filter 1s var(--ease-out);
   filter: grayscale(.05) contrast(1.02);
 }
-.project:hover .project__media img { transform: scale(1.05); filter: grayscale(0) contrast(1.05); }
-.project__caption { display: flex; flex-direction: column; gap: 6px; }
+.project:hover .project__media img { transform: scale(1.04); filter: grayscale(0) contrast(1.05); }
+.project__caption { display: flex; flex-direction: column; gap: 6px; text-align: left; align-items: flex-start; }
 .project__n { color: var(--mist-deep); font-size: 10px; }
-.project__name { font-size: clamp(18px,2vw,32px); font-weight: 300; letter-spacing: -.02em; margin: 4px 0; line-height: 1; }
-.project__meta { display: flex; gap: 16px; flex-wrap: wrap; color: var(--mist-deep); font-size: 10px; }
-.projects__more { margin-top: 100px; display: flex; justify-content: center; }
+.project__name { font-size: clamp(18px,2vw,28px); font-weight: 300; letter-spacing: -.02em; margin: 4px 0; line-height: 1; }
+.project__meta { display: flex; gap: 16px; flex-wrap: wrap; color: var(--mist-deep); font-size: 10px; justify-content: flex-start; }
+
+.projects__more { margin-top: 56px; display: flex; justify-content: center; }
 
 /* ── Process (home, fundo escuro) ───────────────────────────── */
 .process { background: var(--ink); color: var(--paper); padding: var(--section) var(--gutter); }
-.process__header { max-width: 1600px; margin: 0 auto 80px; display: flex; flex-direction: column; align-items: center; text-align: center; }
-.process__header .eyebrow { color: var(--mist); margin-bottom: 40px; display: flex; align-items: center; justify-content: center; }
+.process__header { max-width: 1600px; margin: 0 auto 48px; display: flex; flex-direction: column; align-items: center; text-align: center; }
+.process__header .eyebrow { color: var(--mist); margin-bottom: 24px; display: flex; align-items: center; justify-content: center; }
 .process__title { font-size: clamp(26px,3.2vw,54px); font-weight: 300; letter-spacing: -.025em; line-height: 1.05; max-width: 18ch; margin: 0 auto; }
 .process__list { max-width: 1600px; margin: 0 auto; }
 .process__step {
@@ -950,7 +958,7 @@ body:not([data-page="home"]) .nav__logo--dark  { display: inline-flex; }
 /* ── Numbers (home) - usa regras existentes mas com layout grid ── */
 .numbers__grid { grid-template-columns: repeat(4,1fr); }
 @media (max-width: 800px) { .numbers__grid { grid-template-columns: repeat(2,1fr); } }
-.numbers__eyebrow { margin-bottom: 60px; display: flex; align-items: center; }
+.numbers__eyebrow { margin-bottom: 32px; display: flex; align-items: center; justify-content: center; }
 .numbers__cell { padding: 40px 0 20px; border-bottom: 1px solid var(--line); }
 
 /* ── Helpers compartilhados ─────────────────────────────────── */

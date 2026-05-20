@@ -177,6 +177,57 @@ document.querySelectorAll('a[href^="#"]').forEach(function(a){
   }, { passive: true });
 })();
 
+// ── 12. Carrossel de projetos ──────────────────────────────────
+(function projectsCarousel() {
+  var root = document.getElementById('projects-carousel');
+  if (!root) return;
+  var slides = Array.prototype.slice.call(root.querySelectorAll('.pc-slide'));
+  var dots   = Array.prototype.slice.call(root.querySelectorAll('[data-pc-dot]'));
+  if (slides.length < 2) return;
+  var i = 0;
+  function go(idx){
+    slides[i].classList.remove('is-on');
+    if (dots[i]) { dots[i].classList.remove('is-on'); dots[i].setAttribute('aria-selected', 'false'); }
+    i = (idx + slides.length) % slides.length;
+    slides[i].classList.add('is-on');
+    if (dots[i]) { dots[i].classList.add('is-on'); dots[i].setAttribute('aria-selected', 'true'); }
+  }
+  function next(){ go(i + 1); }
+  function prev(){ go(i - 1); }
+
+  // Cliques (setas + dots)
+  root.addEventListener('click', function(e){
+    var nav = e.target.closest('[data-pc-nav]');
+    if (nav) { e.preventDefault(); e.stopPropagation();
+      if (nav.dataset.pcNav === 'next') next(); else prev(); return; }
+    var dot = e.target.closest('[data-pc-dot]');
+    if (dot) { e.preventDefault(); e.stopPropagation(); go(parseInt(dot.dataset.pcDot, 10)); }
+  }, true);
+
+  // Swipe mobile
+  var sx = 0, sy = 0, t0 = 0;
+  var track = root.querySelector('[data-pc-track]');
+  if (track) {
+    track.addEventListener('touchstart', function(e){
+      sx = e.touches[0].clientX; sy = e.touches[0].clientY; t0 = Date.now();
+    }, { passive: true });
+    track.addEventListener('touchend', function(e){
+      var dx = e.changedTouches[0].clientX - sx;
+      var dy = e.changedTouches[0].clientY - sy;
+      var dt = Date.now() - t0;
+      if (dt < 800 && Math.abs(dx) > 40 && Math.abs(dx) > Math.abs(dy)) {
+        if (dx < 0) next(); else prev();
+      }
+    }, { passive: true });
+  }
+
+  // Teclado: ← → quando o carrossel ou um dot tem foco
+  root.addEventListener('keydown', function(e){
+    if (e.key === 'ArrowRight') { e.preventDefault(); next(); }
+    else if (e.key === 'ArrowLeft') { e.preventDefault(); prev(); }
+  });
+})();
+
 // ── 11. Cursor customizado (desktop apenas) ──
 (function customCursor() {
   if (window.matchMedia('(max-width: 900px)').matches) return;

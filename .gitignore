@@ -36,3 +36,4 @@ build/
 .env.local
 .env.*.local
 index.react-backup.html
+_preview/
