@@ -117,3 +117,94 @@ document.querySelectorAll('a[href^="#"]').forEach(function(a){
     });
   });
 })();
+
+// ── 8. Nav: classe nav--scrolled após primeira rolagem (desktop dark→light) ──
+(function navScrolled() {
+  var nav = document.getElementById('nav') || document.querySelector('.nav');
+  if (!nav) return;
+  var ticking = false;
+  function update(){
+    nav.classList.toggle('nav--scrolled', window.scrollY > 60);
+    ticking = false;
+  }
+  window.addEventListener('scroll', function(){
+    if (!ticking) { requestAnimationFrame(update); ticking = true; }
+  }, { passive: true });
+  update();
+})();
+
+// ── 9. Drawer mobile: burger abre/fecha + trava scroll ──
+(function drawerMobile() {
+  var burger = document.querySelector('.nav__burger');
+  var drawer = document.getElementById('drawer') || document.querySelector('.drawer');
+  var nav    = document.getElementById('nav') || document.querySelector('.nav');
+  if (!burger || !drawer) return;
+  function setOpen(open) {
+    burger.classList.toggle('is-open', open);
+    drawer.classList.toggle('drawer--open', open);
+    drawer.setAttribute('aria-hidden', open ? 'false' : 'true');
+    burger.setAttribute('aria-expanded', open ? 'true' : 'false');
+    if (nav) nav.classList.toggle('nav--menu-open', open);
+    document.body.style.overflow = open ? 'hidden' : '';
+  }
+  burger.addEventListener('click', function(){
+    setOpen(!drawer.classList.contains('drawer--open'));
+  });
+  // Fecha ao clicar em item do drawer (link interno já navega — só limpa estado)
+  drawer.querySelectorAll('a').forEach(function(a){
+    a.addEventListener('click', function(){ setOpen(false); });
+  });
+  // Esc fecha
+  document.addEventListener('keydown', function(e){
+    if (e.key === 'Escape' && drawer.classList.contains('drawer--open')) setOpen(false);
+  });
+})();
+
+// ── 10. Hero parallax (desktop): translateY + scale baseado no scroll ──
+(function heroParallax() {
+  var bg = document.getElementById('hero-bg');
+  if (!bg) return;
+  if (window.matchMedia('(max-width: 800px)').matches) return; // sem parallax no mobile
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  var ticking = false;
+  function update(){
+    var t = Math.min(window.scrollY / 600, 1);
+    bg.style.transform = 'translateY(' + (t * 80) + 'px) scale(' + (1 + t * 0.05) + ')';
+    ticking = false;
+  }
+  window.addEventListener('scroll', function(){
+    if (!ticking) { requestAnimationFrame(update); ticking = true; }
+  }, { passive: true });
+})();
+
+// ── 11. Cursor customizado (desktop apenas) ──
+(function customCursor() {
+  if (window.matchMedia('(max-width: 900px)').matches) return;
+  if (window.matchMedia('(hover: none)').matches) return;
+  var dot  = document.querySelector('.cursor-dot');
+  var ring = document.querySelector('.cursor-ring');
+  var label = ring && ring.querySelector('.cursor-label');
+  if (!dot || !ring) return;
+  var dx=0, dy=0, rx=0, ry=0, raf;
+  function move(e){
+    dx = e.clientX; dy = e.clientY;
+    dot.style.transform = 'translate3d(' + dx + 'px,' + dy + 'px,0) translate(-50%,-50%)';
+  }
+  function tick(){
+    rx += (dx - rx) * 0.18;
+    ry += (dy - ry) * 0.18;
+    ring.style.transform = 'translate3d(' + rx + 'px,' + ry + 'px,0) translate(-50%,-50%)';
+    raf = requestAnimationFrame(tick);
+  }
+  function over(e){
+    var t = e.target.closest('[data-cursor]');
+    var variant = t ? t.dataset.cursor : 'default';
+    var lbl = t ? (t.dataset.cursorLabel || '') : '';
+    dot.className = 'cursor-dot cursor-' + variant;
+    ring.className = 'cursor-ring cursor-' + variant;
+    if (label) { label.textContent = lbl; }
+  }
+  window.addEventListener('mousemove', move, { passive: true });
+  window.addEventListener('mouseover', over, { passive: true });
+  tick();
+})();
