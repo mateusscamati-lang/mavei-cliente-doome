@@ -904,10 +904,10 @@ body:not([data-page="home"]) .nav__logo--dark  { display: inline-flex; }
 .manifesto__faded { opacity: .36; }
 
 /* ── Projetos em destaque (home) ────────────────────────────── */
-.projects { padding: var(--section) var(--gutter); max-width: 1800px; margin: 0 auto; }
+.projects { padding: var(--section) var(--gutter); max-width: 1200px; margin: 0 auto; }
 .projects__header { display: grid; grid-template-columns: 1fr; gap: 40px; margin-bottom: 100px; }
 .projects__title { font-size: clamp(26px,3.2vw,54px); font-weight: 300; letter-spacing: -.025em; line-height: 1.05; max-width: 18ch; }
-.projects__grid { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(40px,6vw,100px) clamp(40px,5vw,80px); }
+.projects__grid { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(40px,5vw,80px) clamp(40px,4vw,60px); }
 @media (max-width: 800px) { .projects__grid { grid-template-columns: 1fr; } }
 .project { display: block; cursor: pointer; }
 .project--r { margin-top: 120px; }
