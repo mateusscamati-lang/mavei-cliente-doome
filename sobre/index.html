@@ -208,27 +208,60 @@
     @media (max-width:600px) { .footer__base-sep { display:none; } .footer__base { gap:8px; } }
   </style>
 </head>
-<body>
+<body data-page="sobre">
 
-<!-- NAV -->
-<nav class="nav">
-  <a href="../" class="nav__brand">
-    <img src="../assets/image-15.webp" alt="DOOME" width="120" height="22" decoding="async" style="height:22px;width:auto;">
+<!-- Nav -->
+<header class="nav" id="nav">
+  <a class="nav__brand" href="/" aria-label="Doome — Início">
+    <picture class="nav__logo nav__logo--dark">
+      <source srcset="/assets/image-15.avif" type="image/avif">
+      <source srcset="/assets/image-15-2x.webp" type="image/webp">
+      <img src="/assets/image-15.webp" alt="DOOME" width="128" height="32" style="display:block;object-fit:contain">
+    </picture>
+    <picture class="nav__logo nav__logo--white">
+      <source srcset="/assets/image-14.avif" type="image/avif">
+      <source srcset="/assets/image-14-2x.webp" type="image/webp">
+      <img src="/assets/image-14.webp" alt="DOOME" width="128" height="32" style="display:block;object-fit:contain">
+    </picture>
   </a>
-  <div class="nav__items">
-    <a href="../"          class="nav__item"><span class="nav__n">00</span> Home</a>
-    <a href="../sobre/"    class="nav__item is-active"><span class="nav__n">01</span> Sobre</a>
-    <a href="../projetos/" class="nav__item"><span class="nav__n">02</span> Projetos</a>
-    <a href="../servicos/" class="nav__item"><span class="nav__n">03</span> Serviços</a>
-    <a href="../contato/"  class="nav__item"><span class="nav__n">04</span> Contato</a>
-    <a href="../blog/"     class="nav__item"><span class="nav__n">05</span> Blog</a>
+  <nav class="nav__items" aria-label="Principal">
+    <a class="nav__item" href="/"><span class="nav__n mono">01</span><span class="nav__label">Início</span></a>
+    <a class="nav__item is-active" href="/sobre/"><span class="nav__n mono">02</span><span class="nav__label">Sobre</span></a>
+    <a class="nav__item" href="/servicos/"><span class="nav__n mono">03</span><span class="nav__label">Serviços</span></a>
+    <a class="nav__item" href="/projetos/"><span class="nav__n mono">04</span><span class="nav__label">Projetos</span></a>
+    <a class="nav__item" href="/contato/"><span class="nav__n mono">05</span><span class="nav__label">Contato</span></a>
+    <a class="nav__item" href="/blog/"><span class="nav__n mono">06</span><span class="nav__label">Blog</span></a>
+  </nav>
+  <a class="nav__cta" href="/contato/" aria-label="Solicitar orçamento">
+    <span>Solicitar orçamento</span>
+    <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M2 7H12 M8 3 L12 7 L8 11" stroke="currentColor" stroke-width="1.2"/></svg>
+  </a>
+  <button class="nav__burger" type="button" aria-label="Menu" aria-expanded="false" aria-controls="drawer">
+    <span></span><span></span>
+  </button>
+</header>
+
+<!-- Drawer mobile -->
+<div class="drawer" id="drawer" aria-hidden="true">
+  <nav class="drawer__nav" aria-label="Menu">
+    <a class="drawer__item" href="/"><span class="mono drawer__n">01</span><span class="serif drawer__label">Início</span></a>
+    <a class="drawer__item is-active" href="/sobre/"><span class="mono drawer__n">02</span><span class="serif drawer__label">Sobre</span></a>
+    <a class="drawer__item" href="/servicos/"><span class="mono drawer__n">03</span><span class="serif drawer__label">Serviços</span></a>
+    <a class="drawer__item" href="/projetos/"><span class="mono drawer__n">04</span><span class="serif drawer__label">Projetos</span></a>
+    <a class="drawer__item" href="/contato/"><span class="mono drawer__n">05</span><span class="serif drawer__label">Contato</span></a>
+    <a class="drawer__item" href="/blog/"><span class="mono drawer__n">06</span><span class="serif drawer__label">Blog</span></a>
+  </nav>
+  <div class="drawer__foot">
+    <a class="drawer__cta" href="/contato/">
+      <span>Solicitar orçamento</span>
+      <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M2 7H12 M8 3 L12 7 L8 11" stroke="currentColor" stroke-width="1.2"/></svg>
+    </a>
+    <div class="drawer__contact mono">
+      <a href="mailto:renan@doome.com.br">renan@doome.com.br</a>
+      <a href="tel:+5519992994853">+55 (19) 99299-4853</a>
+    </div>
   </div>
-  <a href="https://api.whatsapp.com/send?phone=5519992994853&text=Ol%C3%A1%2C+Doome%21+Gostaria+de+conversar+sobre+um+projeto."
-     class="nav__cta" target="_blank" rel="noopener noreferrer" aria-label="Fale conosco no WhatsApp" data-cta="nav">
-    <span>Fale conosco</span>
-    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg>
-  </a>
-</nav>
+</div>
 
 <main>
 
