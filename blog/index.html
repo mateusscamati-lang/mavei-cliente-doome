@@ -119,9 +119,9 @@
   }
   .nav__cta:hover { background: var(--graphite); color: var(--paper); }
   @media (max-width: 900px) {
-    .nav { grid-template-columns: auto auto; }
+    .nav { grid-template-columns: auto auto; gap: 14px; padding: 14px 20px; }
     .nav__items { display: none; }
-    .nav__cta span { display: none; }
+    .nav__cta { display: none; }
   }
 
   /* ====== PAGE HEADER (idêntico às páginas internas) ====== */
@@ -343,29 +343,97 @@
   @media (max-width: 800px) {
     .footer__grid { grid-template-columns: repeat(2, 1fr); }
   }
+
+  /* BURGER + DRAWER MOBILE */
+  .nav__burger { display:none; background:none; border:0; padding:0; cursor:pointer; }
+  .drawer { display:none; }
+  @media (max-width: 900px) {
+    .nav__burger {
+      display:inline-flex; flex-direction:column; justify-content:center; gap:5px;
+      width:44px; height:44px; padding:0; color:inherit;
+      margin-left:auto; align-items:flex-end; z-index:110; position:relative;
+    }
+    .nav__burger span { display:block; width:24px; height:1px; background:currentColor; transition:transform .4s var(--ease-out), width .4s var(--ease-out); transform-origin:right center; }
+    .nav__burger span:nth-child(2) { width:16px; }
+    .nav__burger.is-open span:nth-child(1) { transform:translateY(3px) rotate(-45deg); width:24px; }
+    .nav__burger.is-open span:nth-child(2) { transform:translateY(-3px) rotate(45deg); width:24px; }
+    .nav--menu-open { background:var(--ink)!important; color:var(--paper)!important; border-bottom-color:transparent!important; backdrop-filter:none!important; }
+    .drawer {
+      display:flex; position:fixed; inset:0; background:var(--ink); color:var(--paper);
+      z-index:105; transform:translateY(-100%); transition:transform .6s var(--ease-out);
+      flex-direction:column; justify-content:space-between; padding:96px 26px 36px; pointer-events:none;
+    }
+    .drawer--open { transform:translateY(0); pointer-events:auto; }
+    .drawer__nav { display:flex; flex-direction:column; gap:0; margin-top:12px; }
+    .drawer__item {
+      background:0 0; border:0; padding:14px 0; color:inherit; text-align:left;
+      display:grid; grid-template-columns:36px 1fr; align-items:baseline; gap:12px;
+      border-bottom:1px solid rgba(242,239,234,.1);
+      opacity:0; transform:translateY(16px);
+      transition:opacity .6s var(--ease-out), transform .6s var(--ease-out);
+    }
+    .drawer--open .drawer__item { opacity:1; transform:translateY(0); }
+    .drawer__n { color:var(--mist); font-family:var(--mono); font-size:10px; letter-spacing:.12em; }
+    .drawer__label { font-family:var(--serif); font-size:clamp(32px,9vw,56px); font-weight:300; letter-spacing:-.025em; line-height:1.05; }
+    .drawer__item.is-active .drawer__label { font-style:italic; }
+    .drawer__foot { display:flex; flex-direction:column; gap:20px; opacity:0; transition:opacity .5s var(--ease-out) .45s; }
+    .drawer--open .drawer__foot { opacity:1; }
+    .drawer__cta {
+      display:inline-flex; align-items:center; justify-content:center; gap:10px;
+      padding:15px 22px; border:1px solid var(--paper); border-radius:999px;
+      color:var(--paper); font-size:13px; background:0 0;
+    }
+    .drawer__contact { display:flex; flex-direction:column; gap:6px; color:rgba(242,239,234,.55); font-family:var(--mono); font-size:11px; letter-spacing:.08em; text-transform:uppercase; }
+    .drawer__contact a { color:inherit; }
+  }
 </style>
 </head>
-<body>
+<body data-page="blog">
 
 <!-- NAV (idêntica às páginas internas) -->
-<nav class="nav">
-  <a href="../" class="nav__brand" aria-label="Doome — Home">
-    <img src="../assets/image-15.webp" alt="DOOME" width="120" height="22" decoding="async">
+<nav class="nav" id="nav">
+  <a href="/" class="nav__brand" aria-label="Doome — Home">
+    <img src="/assets/image-15.webp" alt="DOOME" width="120" height="22" decoding="async">
   </a>
   <div class="nav__items">
-    <a href="../" class="nav__item"><span class="nav__n">00</span> Home</a>
-    <a href="../sobre/" class="nav__item"><span class="nav__n">01</span> Sobre</a>
-    <a href="../projetos/" class="nav__item"><span class="nav__n">02</span> Projetos</a>
-    <a href="../servicos/" class="nav__item"><span class="nav__n">03</span> Serviços</a>
-    <a href="../contato/" class="nav__item"><span class="nav__n">04</span> Contato</a>
-    <a href="../blog/" class="nav__item is-active"><span class="nav__n">05</span> Blog</a>
+    <a href="/" class="nav__item"><span class="nav__n">00</span> Home</a>
+    <a href="/sobre/" class="nav__item"><span class="nav__n">01</span> Sobre</a>
+    <a href="/projetos/" class="nav__item"><span class="nav__n">02</span> Projetos</a>
+    <a href="/servicos/" class="nav__item"><span class="nav__n">03</span> Serviços</a>
+    <a href="/contato/" class="nav__item"><span class="nav__n">04</span> Contato</a>
+    <a href="/blog/" class="nav__item is-active"><span class="nav__n">05</span> Blog</a>
   </div>
   <a href="https://api.whatsapp.com/send?phone=5519992994853&text=Ol%C3%A1%2C+Doome%21+Vi+o+site+de+voc%C3%AAs+e+gostaria+de+conversar+sobre+um+projeto."
      class="nav__cta" target="_blank" rel="noopener noreferrer" data-cta="nav-blog" aria-label="Fale conosco no WhatsApp">
     <span>Fale conosco</span>
     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg>
   </a>
+  <button class="nav__burger" type="button" aria-label="Menu" aria-expanded="false" aria-controls="drawer">
+    <span></span><span></span>
+  </button>
 </nav>
+
+<!-- Drawer mobile -->
+<div class="drawer" id="drawer" aria-hidden="true">
+  <nav class="drawer__nav" aria-label="Menu">
+    <a class="drawer__item" href="/"><span class="drawer__n">00</span><span class="drawer__label">Home</span></a>
+    <a class="drawer__item" href="/sobre/"><span class="drawer__n">01</span><span class="drawer__label">Sobre</span></a>
+    <a class="drawer__item" href="/projetos/"><span class="drawer__n">02</span><span class="drawer__label">Projetos</span></a>
+    <a class="drawer__item" href="/servicos/"><span class="drawer__n">03</span><span class="drawer__label">Serviços</span></a>
+    <a class="drawer__item" href="/contato/"><span class="drawer__n">04</span><span class="drawer__label">Contato</span></a>
+    <a class="drawer__item is-active" href="/blog/"><span class="drawer__n">05</span><span class="drawer__label">Blog</span></a>
+  </nav>
+  <div class="drawer__foot">
+    <a class="drawer__cta" href="https://api.whatsapp.com/send?phone=5519992994853&text=Ol%C3%A1%2C+Doome%21+Vi+o+site+de+voc%C3%AAs+e+gostaria+de+conversar+sobre+um+projeto." target="_blank" rel="noopener noreferrer">
+      <span>Fale no WhatsApp</span>
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg>
+    </a>
+    <div class="drawer__contact">
+      <a href="mailto:renan@doome.com.br">renan@doome.com.br</a>
+      <a href="tel:+5519992994853">+55 (19) 99299-4853</a>
+    </div>
+  </div>
+</div>
 
 <main>
   <!-- HEADER -->

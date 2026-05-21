@@ -86,7 +86,7 @@
     .nav__n { font-size:9px; opacity:.55; }
     .nav__cta { display:inline-flex; align-items:center; gap:12px; font-size:13px; padding:10px 18px; border:1px solid currentColor; border-radius:999px; transition:background .4s,color .4s; }
     .nav__cta:hover { background:var(--graphite); color:var(--paper); }
-    @media(max-width:900px) { .nav { grid-template-columns:auto auto; } .nav__items { display:none; } .nav__cta span { display:none; } }
+    @media(max-width:900px) { .nav { grid-template-columns:auto auto; gap:14px; padding:14px 20px; } .nav__items { display:none; } .nav__cta { display:none; } }
 
     .reveal { opacity:0; transform:translateY(28px); transition:opacity 1.1s var(--ease-out),transform 1.1s var(--ease-out); }
     .reveal.in { opacity:1; transform:translateY(0); }
@@ -170,57 +170,91 @@
     .mavei-credit img { height:14px; width:auto; display:block; opacity:.7; transition:opacity .35s ease; }
     .mavei-credit:hover img { opacity:1; }
     @media (max-width:600px) { .footer__base-sep { display:none; } .footer__base { gap:8px; } }
+
+    /* BURGER + DRAWER MOBILE */
+    .nav__burger { display:none; background:none; border:0; padding:0; cursor:pointer; }
+    .drawer { display:none; }
+    @media(max-width:900px) {
+      .nav__burger {
+        display:inline-flex; flex-direction:column; justify-content:center; gap:5px;
+        width:44px; height:44px; padding:0; color:inherit;
+        margin-left:auto; align-items:flex-end; z-index:110; position:relative;
+      }
+      .nav__burger span { display:block; width:24px; height:1px; background:currentColor; transition:transform .4s var(--ease-out), width .4s var(--ease-out); transform-origin:right center; }
+      .nav__burger span:nth-child(2) { width:16px; }
+      .nav__burger.is-open span:nth-child(1) { transform:translateY(3px) rotate(-45deg); width:24px; }
+      .nav__burger.is-open span:nth-child(2) { transform:translateY(-3px) rotate(45deg); width:24px; }
+      .nav--menu-open { background:var(--ink)!important; color:var(--paper)!important; border-bottom-color:transparent!important; backdrop-filter:none!important; }
+      .drawer {
+        display:flex; position:fixed; inset:0; background:var(--ink); color:var(--paper);
+        z-index:105; transform:translateY(-100%); transition:transform .6s var(--ease-out);
+        flex-direction:column; justify-content:space-between; padding:96px 26px 36px; pointer-events:none;
+      }
+      .drawer--open { transform:translateY(0); pointer-events:auto; }
+      .drawer__nav { display:flex; flex-direction:column; gap:0; margin-top:12px; }
+      .drawer__item {
+        background:0 0; border:0; padding:14px 0; color:inherit; text-align:left;
+        display:grid; grid-template-columns:36px 1fr; align-items:baseline; gap:12px;
+        border-bottom:1px solid rgba(242,239,234,.1);
+        opacity:0; transform:translateY(16px);
+        transition:opacity .6s var(--ease-out), transform .6s var(--ease-out);
+      }
+      .drawer--open .drawer__item { opacity:1; transform:translateY(0); }
+      .drawer__n { color:var(--mist); font-family:var(--mono); font-size:10px; letter-spacing:.12em; }
+      .drawer__label { font-family:var(--serif); font-size:clamp(32px,9vw,56px); font-weight:300; letter-spacing:-.025em; line-height:1.05; }
+      .drawer__item.is-active .drawer__label { font-style:italic; }
+      .drawer__foot { display:flex; flex-direction:column; gap:20px; opacity:0; transition:opacity .5s var(--ease-out) .45s; }
+      .drawer--open .drawer__foot { opacity:1; }
+      .drawer__cta {
+        display:inline-flex; align-items:center; justify-content:center; gap:10px;
+        padding:15px 22px; border:1px solid var(--paper); border-radius:999px;
+        color:var(--paper); font-size:13px; background:0 0;
+      }
+      .drawer__contact { display:flex; flex-direction:column; gap:6px; color:rgba(242,239,234,.55); font-family:var(--mono); font-size:11px; letter-spacing:.08em; text-transform:uppercase; }
+      .drawer__contact a { color:inherit; }
+    }
   </style>
 </head>
 <body data-page="contato">
 
 <!-- Nav -->
-<header class="nav" id="nav">
-  <a class="nav__brand" href="/" aria-label="Doome — Início">
-    <picture class="nav__logo nav__logo--dark">
-      <source srcset="/assets/image-15.avif" type="image/avif">
-      <source srcset="/assets/image-15-2x.webp" type="image/webp">
-      <img src="/assets/image-15.webp" alt="DOOME" width="128" height="32" style="display:block;object-fit:contain">
-    </picture>
-    <picture class="nav__logo nav__logo--white">
-      <source srcset="/assets/image-14.avif" type="image/avif">
-      <source srcset="/assets/image-14-2x.webp" type="image/webp">
-      <img src="/assets/image-14.webp" alt="DOOME" width="128" height="32" style="display:block;object-fit:contain">
-    </picture>
+<nav class="nav" id="nav">
+  <a href="/" class="nav__brand" aria-label="Doome — Início">
+    <img src="/assets/image-15.webp" alt="DOOME" width="120" height="22" decoding="async" style="height:22px;width:auto;">
   </a>
-  <nav class="nav__items" aria-label="Principal">
-    <a class="nav__item" href="/"><span class="nav__n mono">01</span><span class="nav__label">Início</span></a>
-    <a class="nav__item" href="/sobre/"><span class="nav__n mono">02</span><span class="nav__label">Sobre</span></a>
-    <a class="nav__item" href="/servicos/"><span class="nav__n mono">03</span><span class="nav__label">Serviços</span></a>
-    <a class="nav__item" href="/projetos/"><span class="nav__n mono">04</span><span class="nav__label">Projetos</span></a>
-    <a class="nav__item is-active" href="/contato/"><span class="nav__n mono">05</span><span class="nav__label">Contato</span></a>
-    <a class="nav__item" href="/blog/"><span class="nav__n mono">06</span><span class="nav__label">Blog</span></a>
-  </nav>
-  <a class="nav__cta" href="/contato/" aria-label="Solicitar orçamento">
-    <span>Solicitar orçamento</span>
-    <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M2 7H12 M8 3 L12 7 L8 11" stroke="currentColor" stroke-width="1.2"/></svg>
+  <div class="nav__items">
+    <a href="/" class="nav__item"><span class="nav__n">00</span> Home</a>
+    <a href="/sobre/" class="nav__item"><span class="nav__n">01</span> Sobre</a>
+    <a href="/projetos/" class="nav__item"><span class="nav__n">02</span> Projetos</a>
+    <a href="/servicos/" class="nav__item"><span class="nav__n">03</span> Serviços</a>
+    <a href="/contato/" class="nav__item is-active"><span class="nav__n">04</span> Contato</a>
+    <a href="/blog/" class="nav__item"><span class="nav__n">05</span> Blog</a>
+  </div>
+  <a href="https://api.whatsapp.com/send?phone=5519992994853&text=Ol%C3%A1%2C+Doome%21+Gostaria+de+conversar+sobre+um+projeto." class="nav__cta" target="_blank" rel="noopener noreferrer" aria-label="Fale conosco no WhatsApp" data-cta="nav">
+    <span>WhatsApp</span>
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg>
   </a>
   <button class="nav__burger" type="button" aria-label="Menu" aria-expanded="false" aria-controls="drawer">
     <span></span><span></span>
   </button>
-</header>
+</nav>
 
 <!-- Drawer mobile -->
 <div class="drawer" id="drawer" aria-hidden="true">
   <nav class="drawer__nav" aria-label="Menu">
-    <a class="drawer__item" href="/"><span class="mono drawer__n">01</span><span class="serif drawer__label">Início</span></a>
-    <a class="drawer__item" href="/sobre/"><span class="mono drawer__n">02</span><span class="serif drawer__label">Sobre</span></a>
-    <a class="drawer__item" href="/servicos/"><span class="mono drawer__n">03</span><span class="serif drawer__label">Serviços</span></a>
-    <a class="drawer__item" href="/projetos/"><span class="mono drawer__n">04</span><span class="serif drawer__label">Projetos</span></a>
-    <a class="drawer__item is-active" href="/contato/"><span class="mono drawer__n">05</span><span class="serif drawer__label">Contato</span></a>
-    <a class="drawer__item" href="/blog/"><span class="mono drawer__n">06</span><span class="serif drawer__label">Blog</span></a>
+    <a class="drawer__item" href="/"><span class="drawer__n">00</span><span class="drawer__label">Home</span></a>
+    <a class="drawer__item" href="/sobre/"><span class="drawer__n">01</span><span class="drawer__label">Sobre</span></a>
+    <a class="drawer__item" href="/projetos/"><span class="drawer__n">02</span><span class="drawer__label">Projetos</span></a>
+    <a class="drawer__item" href="/servicos/"><span class="drawer__n">03</span><span class="drawer__label">Serviços</span></a>
+    <a class="drawer__item is-active" href="/contato/"><span class="drawer__n">04</span><span class="drawer__label">Contato</span></a>
+    <a class="drawer__item" href="/blog/"><span class="drawer__n">05</span><span class="drawer__label">Blog</span></a>
   </nav>
   <div class="drawer__foot">
-    <a class="drawer__cta" href="/contato/">
-      <span>Solicitar orçamento</span>
-      <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M2 7H12 M8 3 L12 7 L8 11" stroke="currentColor" stroke-width="1.2"/></svg>
+    <a class="drawer__cta" href="https://api.whatsapp.com/send?phone=5519992994853&text=Ol%C3%A1%2C+Doome%21+Gostaria+de+conversar+sobre+um+projeto." target="_blank" rel="noopener noreferrer">
+      <span>Fale no WhatsApp</span>
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg>
     </a>
-    <div class="drawer__contact mono">
+    <div class="drawer__contact">
       <a href="mailto:renan@doome.com.br">renan@doome.com.br</a>
       <a href="tel:+5519992994853">+55 (19) 99299-4853</a>
     </div>
