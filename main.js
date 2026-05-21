@@ -106,16 +106,12 @@ document.querySelectorAll('a[href^="#"]').forEach(function(a){
   });
 })();
 
-// ── 7. Service Worker: registra após load (não bloqueia 1ª pintura) ──
-(function registerSW() {
+// ── 7. Service Worker: desregistra qualquer SW antigo (o sw.js virou kill-switch) ──
+(function unregisterOldSW() {
   if (!('serviceWorker' in navigator)) return;
-  // Não registra em localhost via servidor Python (file:// também não funciona)
-  if (location.protocol !== 'https:' && location.hostname !== 'localhost') return;
-  window.addEventListener('load', function(){
-    navigator.serviceWorker.register('/sw.js').catch(function(err){
-      console.warn('[sw] registro falhou:', err);
-    });
-  });
+  navigator.serviceWorker.getRegistrations().then(function(regs){
+    regs.forEach(function(reg){ reg.unregister(); });
+  }).catch(function(){});
 })();
 
 // ── 8. Nav: classe nav--scrolled após primeira rolagem (desktop dark→light) ──
